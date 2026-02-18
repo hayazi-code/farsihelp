@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>آموزش الفبا — Letter Quest 90s</title>
+
+  <!-- Pixel UI font (Latin UI elements) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#05060a;
+      --panel:#0c1020;
+      --panel2:#0b1a2c;
+      --text:#d7f6ff;
+      --muted:#8bd3ff;
+      --hot:#ff4fd8;
+      --good:#66ff99;
+      --warn:#ffd166;
+      --border:#2b4a7a;
+      --shadow:#000;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 700px at 70% 20%, #12204a 0%, transparent 60%),
+        radial-gradient(900px 600px at 20% 80%, #2a0e3d 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg), #03040a);
+      color:var(--text);
+      font-family: "Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .crt{
+      width:min(980px, 100%);
+      border:3px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 25%),
+                  linear-gradient(180deg, var(--panel), #070a14);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+    }
+    .crt::before{
+      content:"";
+      position:absolute; inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.06),
+        rgba(255,255,255,0.06) 1px,
+        rgba(0,0,0,0.0) 2px,
+        rgba(0,0,0,0.0) 4px
+      );
+      pointer-events:none;
+      mix-blend-mode: overlay;
+      opacity:0.22;
+    }
+    header{
+      padding:18px 18px 10px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid rgba(139,211,255,0.18);
+    }
+    .title{
+      display:flex; align-items:center; gap:12px;
+    }
+    .badge{
+      font-family:"Press Start 2P", monospace;
+      font-size:10px;
+      color:#0b1020;
+      background: linear-gradient(90deg, var(--hot), #7cf7ff);
+      padding:8px 10px;
+      border-radius:10px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.35);
+      transform: translateY(-1px);
+    }
+    h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:0.2px;
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    button{
+      cursor:pointer;
+      border:2px solid rgba(139,211,255,0.25);
+      background: linear-gradient(180deg, #11244a, #0a1430);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      font-weight:700;
+      transition: transform .05s ease, border-color .15s ease;
+    }
+    button:hover{ border-color: rgba(255,79,216,0.6); }
+    button:active{ transform: translateY(1px); }
+    button.secondary{
+      background: linear-gradient(180deg, #0d162b, #091022);
+      color: var(--muted);
+      font-weight:600;
+    }
+
+    main{
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap:14px;
+    }
+    @media (max-width: 860px){
+      main{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: linear-gradient(180deg, rgba(124,247,255,0.06), transparent 22%),
+                  linear-gradient(180deg, var(--panel2), #060a14);
+      border:2px solid rgba(139,211,255,0.16);
+      border-radius:16px;
+      padding:16px;
+      position:relative;
+    }
+    .panel h2{
+      margin:0 0 10px;
+      font-size:16px;
+    }
+    .tiny{
+      color: var(--muted);
+      font-size:12px;
+      line-height:1.6;
+      margin-top:6px;
+    }
+    .statbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .pill{
+      border:1px solid rgba(139,211,255,0.18);
+      background: rgba(0,0,0,0.25);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    .card{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+      align-items:center;
+      padding:16px;
+      border-radius:16px;
+      border:2px solid rgba(255,79,216,0.25);
+      background: linear-gradient(180deg, rgba(255,79,216,0.10), transparent 30%),
+                  rgba(0,0,0,0.25);
+    }
+    .glyph{
+      font-size:90px;
+      line-height:1;
+      text-align:center;
+      margin-top:6px;
+      text-shadow: 0 8px 0 rgba(0,0,0,0.25);
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .kv{
+      display:flex;
+      align-items:baseline;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(139,211,255,0.18);
+      background: rgba(0,0,0,0.18);
+    }
+    .k{ color: var(--muted); font-size:12px; }
+    .v{ font-weight:800; font-size:14px; }
+
+    .choices{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .choice{
+      text-align:center;
+      font-size:24px;
+      padding:14px 10px;
+      border-radius:14px;
+      border:2px solid rgba(139,211,255,0.18);
+      background: rgba(0,0,0,0.22);
+      user-select:none;
+    }
+    .choice.correct{
+      border-color: rgba(102,255,153,0.65);
+      box-shadow: 0 0 0 3px rgba(102,255,153,0.15) inset;
+    }
+    .choice.wrong{
+      border-color: rgba(255,79,216,0.65);
+      box-shadow: 0 0 0 3px rgba(255,79,216,0.15) inset;
+    }
+
+    .footer{
+      padding:12px 18px 16px;
+      border-top:1px solid rgba(139,211,255,0.18);
+      color: rgba(215,246,255,0.72);
+      font-size:12px;
+      display:flex;
+      gap:8px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .pixel{
+      font-family:"Press Start 2P", monospace;
+      font-size:10px;
+      color:#7cf7ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="crt" role="application" aria-label="Letter Quest">
+    <header>
+      <div class="title">
+        <div class="badge">90s EDU</div>
+        <div>
+          <h1>Letter Quest — آموزش الفبای فارسی</h1>
+          <p class="sub">یادگیری با کارت، آزمون، و تکرار هوشمند</p>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="modeLearn">حالت یادگیری</button>
+        <button id="modeQuiz" class="secondary">حالت آزمون</button>
+        <button id="shuffle" class="secondary">تصادفی</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <h2 id="panelTitle">کارت حرف</h2>
+
+        <div class="card" aria-live="polite">
+          <div class="glyph" id="glyph">ا</div>
+
+          <div class="row">
+            <div class="kv"><span class="k">نام</span><span class="v" id="name">الف</span></div>
+            <div class="kv"><span class="k">آوا</span><span class="v" id="sound">/â/ یا /a/</span></div>
+            <div class="kv"><span class="k">نمونه</span><span class="v" id="example">آب 💧</span></div>
+          </div>
+
+          <div class="row" style="margin-top:4px;">
+            <button id="prev" class="secondary">قبلی</button>
+            <button id="speak">🔊 تلفظ</button>
+            <button id="next">بعدی</button>
+          </div>
+
+          <p class="tiny" id="note">
+            نکته: خیلی از حروف شبیه هم‌اند؛ این بازی بعداً آن‌ها را به شکل «گروه‌های اشتباه‌گیر» تمرین می‌دهد.
+          </p>
+        </div>
+
+        <div class="statbar">
+          <div class="pill">سطح: <b id="level">۱</b></div>
+          <div class="pill">امتیاز: <b id="score">۰</b></div>
+          <div class="pill">تلاش‌ها: <b id="attempts">۰</b></div>
+          <div class="pill">دقت: <b id="accuracy">۰٪</b></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>آزمون سریع</h2>
+        <p class="tiny" id="quizPrompt">کدام گزینه «الف» است؟</p>
+
+        <div class="choices" id="choices"></div>
+
+        <div class="row" style="margin-top:12px; justify-content:space-between;">
+          <button id="newQuestion">سؤال جدید</button>
+          <button id="reset" class="secondary">ریست امتیاز</button>
+        </div>
+
+        <p class="tiny">
+          پیشنهاد طراحی: بعداً می‌توانیم «فرم‌های اتصال» (ابتدایی/میانی/پایانی) را به صورت مرحله‌های جدا اضافه کنیم.
+        </p>
+      </section>
+    </main>
+
+    <div class="footer">
+      <span>راهنما: با «حالت یادگیری» جلو برو، بعد در «آزمون» سرعت بگیر.</span>
+      <span class="pixel">INSERT COIN? (نه 😄)</span>
+    </div>
+  </div>
+
+<script>
+  // --- Data: minimal starter set. Expand this list freely.
+  // fields:
+  // glyph: letter
+  // name: Persian letter name
+  // sound: a learner-friendly sound hint
+  // example: simple word + emoji
+  const LETTERS = [
+    { glyph:"ا", name:"الف", sound:"/â/ یا /a/", example:"آب 💧" },
+    { glyph:"ب", name:"بِ", sound:"/b/", example:"بابا 👨" },
+    { glyph:"پ", name:"پِ", sound:"/p/", example:"پنیر 🧀" },
+    { glyph:"ت", name:"تِ", sound:"/t/", example:"توت 🍇" },
+    { glyph:"ث", name:"ثِ", sound:"مثل «س»", example:"ثروت 💰" },
+    { glyph:"ج", name:"جیم", sound:"/j/", example:"جوجه 🐥" },
+    { glyph:"چ", name:"چِ", sound:"/ch/", example:"چای 🍵" },
+    { glyph:"ح", name:"حِ", sound:"هٔ نفس‌دار", example:"حیاط 🏡" },
+    { glyph:"خ", name:"خِ", sound:"/kh/", example:"خرس 🐻" },
+    { glyph:"د", name:"دال", sound:"/d/", example:"درخت 🌳" },
+    { glyph:"ر", name:"رِ", sound:"/r/", example:"راه 🛣️" },
+    { glyph:"ز", name:"زِ", sound:"/z/", example:"زرافه 🦒" },
+    { glyph:"ژ", name:"ژِ", sound:"/zh/", example:"ژاله ❄️" },
+    { glyph:"س", name:"سین", sound:"/s/", example:"سیب 🍎" },
+    { glyph:"ش", name:"شین", sound:"/sh/", example:"شیر 🦁" },
+    { glyph:"ف", name:"فِ", sound:"/f/", example:"فیل 🐘" },
+    { glyph:"ق", name:"قاف", sound:"/gh/ یا /q/", example:"قلم ✏️" },
+    { glyph:"ک", name:"کاف", sound:"/k/", example:"کتاب 📘" },
+    { glyph:"گ", name:"گاف", sound:"/g/", example:"گاو 🐄" },
+    { glyph:"ل", name:"لام", sound:"/l/", example:"لامپ 💡" },
+    { glyph:"م", name:"میم", sound:"/m/", example:"ماه 🌙" },
+    { glyph:"ن", name:"نون", sound:"/n/", example:"نان 🍞" },
+    { glyph:"و", name:"واو", sound:"/v/ یا /u/ یا /o/", example:"ورزش 🏃" },
+    { glyph:"ه", name:"ه", sound:"/h/ یا ـهٔ پایانی", example:"هوا ☁️" },
+    { glyph:"ی", name:"ی", sound:"/y/ یا /i/", example:"یخ 🧊" }
+  ];
+
+  // --- State
+  let idx = 0;
+  let mode = "learn"; // learn | quiz
+  let score = 0, attempts = 0, correct = 0;
+  let level = 1;
+
+  // --- Elements
+  const el = (id) => document.getElementById(id);
+  const glyphEl = el("glyph");
+  const nameEl = el("name");
+  const soundEl = el("sound");
+  const exampleEl = el("example");
+  const panelTitleEl = el("panelTitle");
+  const quizPromptEl = el("quizPrompt");
+  const choicesEl = el("choices");
+
+  const scoreEl = el("score");
+  const attemptsEl = el("attempts");
+  const accuracyEl = el("accuracy");
+  const levelEl = el("level");
+
+  function renderCard(){
+    const L = LETTERS[idx];
+    glyphEl.textContent = L.glyph;
+    nameEl.textContent = L.name;
+    soundEl.textContent = L.sound;
+    exampleEl.textContent = L.example;
+  }
+
+  function speakLetter(){
+    const L = LETTERS[idx];
+    // SpeechSynthesis may not have Persian voice on all systems; still useful when it works.
+    const msg = new SpeechSynthesisUtterance(`${L.name}. ${L.glyph}. مثال: ${L.example.replace(/[\u{1F300}-\u{1FAFF}]/gu,"")}`);
+    msg.lang = "fa-IR";
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
+  }
+
+  function updateStats(){
+    scoreEl.textContent = String(score);
+    attemptsEl.textContent = String(attempts);
+    const acc = attempts ? Math.round((correct/attempts)*100) : 0;
+    accuracyEl.textContent = `${acc}٪`;
+    levelEl.textContent = String(level);
+  }
+
+  function randInt(n){ return Math.floor(Math.random()*n); }
+
+  function newQuestion(){
+    // Pick target = current idx (learn mode) or random (quiz mode)
+    const targetIndex = (mode === "learn") ? idx : randInt(LETTERS.length);
+    const target = LETTERS[targetIndex];
+
+    quizPromptEl.textContent = `کدام گزینه «${target.name}» است؟`;
+
+    // build 4 choices
+    const options = new Set([targetIndex]);
+    while(options.size < 4){
+      options.add(randInt(LETTERS.length));
+    }
+    const optionArr = Array.from(options).map(i => ({i, L: LETTERS[i]}));
+
+    // shuffle
+    for(let i=optionArr.length-1;i>0;i--){
+      const j = randInt(i+1);
+      [optionArr[i], optionArr[j]] = [optionArr[j], optionArr[i]];
+    }
+
+    // render
+    choicesEl.innerHTML = "";
+    optionArr.forEach(({i, L}) => {
+      const b = document.createElement("button");
+      b.className = "choice";
+      b.type = "button";
+      b.textContent = L.glyph;
+      b.onclick = () => handleAnswer(i === targetIndex, b, targetIndex);
+      choicesEl.appendChild(b);
+    });
+  }
+
+  function handleAnswer(isCorrect, btn, targetIndex){
+    attempts++;
+    if(isCorrect){
+      correct++;
+      score += 10;
+      btn.classList.add("correct");
+      // very simple leveling: every 50 points
+      level = 1 + Math.floor(score / 50);
+      // in learn mode, advance the card after a correct answer
+      if(mode === "learn"){
+        idx = (idx + 1) % LETTERS.length;
+        renderCard();
+      }
+    } else {
+      score = Math.max(0, score - 5);
+      btn.classList.add("wrong");
+      // tiny penalty: in learn mode, go back one to reinforce
+      if(mode === "learn"){
+        idx = (idx - 1 + LETTERS.length) % LETTERS.length;
+        renderCard();
+      }
+    }
+    updateStats();
+    // lock choices briefly
+    Array.from(choicesEl.children).forEach(c => c.disabled = true);
+    setTimeout(newQuestion, 550);
+  }
+
+  // --- Controls
+  el("prev").onclick = () => { idx = (idx - 1 + LETTERS.length) % LETTERS.length; renderCard(); if(mode==="learn") newQuestion(); };
+  el("next").onclick = () => { idx = (idx + 1) % LETTERS.length; renderCard(); if(mode==="learn") newQuestion(); };
+  el("shuffle").onclick = () => { idx = randInt(LETTERS.length); renderCard(); newQuestion(); };
+
+  el("speak").onclick = speakLetter;
+
+  el("modeLearn").onclick = () => {
+    mode = "learn";
+    panelTitleEl.textContent = "کارت حرف (یادگیری)";
+    el("modeLearn").classList.remove("secondary");
+    el("modeQuiz").classList.add("secondary");
+    renderCard();
+    newQuestion();
+  };
+
+  el("modeQuiz").onclick = () => {
+    mode = "quiz";
+    panelTitleEl.textContent = "کارت حرف (مرجع)";
+    el("modeQuiz").classList.remove("secondary");
+    el("modeLearn").classList.add("secondary");
+    renderCard();
+    newQuestion();
+  };
+
+  el("newQuestion").onclick = newQuestion;
+
+  el("reset").onclick = () => {
+    score = 0; attempts = 0; correct = 0; level = 1;
+    updateStats();
+    newQuestion();
+  };
+
+  // Init
+  renderCard();
+  updateStats();
+  newQuestion();
+</script>
+</body>
+</html>
