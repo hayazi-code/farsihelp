@@ -2,492 +2,477 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>آموزش الفبا — Letter Quest 90s</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>باغِ حروف — نسخه‌ی آرام</title>
 
-  <!-- Pixel UI font (Latin UI elements) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#05060a;
-      --panel:#0c1020;
-      --panel2:#0b1a2c;
-      --text:#d7f6ff;
-      --muted:#8bd3ff;
-      --hot:#ff4fd8;
-      --good:#66ff99;
-      --warn:#ffd166;
-      --border:#2b4a7a;
-      --shadow:#000;
+      --bg1:#071018; --bg2:#061427;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.12);
+      --text: #eaf6ff;
+      --muted:#a9d7ff;
+      --accent:#7ce7d6;
+      --accent2:#b7a2ff;
+      --good:#86f7a6;
+      --shadow: rgba(0,0,0,0.35);
     }
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      background:
-        radial-gradient(1200px 700px at 70% 20%, #12204a 0%, transparent 60%),
-        radial-gradient(900px 600px at 20% 80%, #2a0e3d 0%, transparent 55%),
-        linear-gradient(180deg, var(--bg), #03040a);
-      color:var(--text);
-      font-family: "Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-    }
-
-    .crt{
-      width:min(980px, 100%);
-      border:3px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 25%),
-                  linear-gradient(180deg, var(--panel), #070a14);
-      box-shadow: 0 18px 60px rgba(0,0,0,0.55);
-      border-radius:18px;
-      overflow:hidden;
-      position:relative;
-    }
-    .crt::before{
-      content:"";
-      position:absolute; inset:0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.06),
-        rgba(255,255,255,0.06) 1px,
-        rgba(0,0,0,0.0) 2px,
-        rgba(0,0,0,0.0) 4px
-      );
-      pointer-events:none;
-      mix-blend-mode: overlay;
-      opacity:0.22;
-    }
-    header{
-      padding:18px 18px 10px;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      border-bottom:1px solid rgba(139,211,255,0.18);
-    }
-    .title{
-      display:flex; align-items:center; gap:12px;
-    }
-    .badge{
-      font-family:"Press Start 2P", monospace;
-      font-size:10px;
-      color:#0b1020;
-      background: linear-gradient(90deg, var(--hot), #7cf7ff);
-      padding:8px 10px;
-      border-radius:10px;
-      box-shadow: 0 6px 0 rgba(0,0,0,0.35);
-      transform: translateY(-1px);
-    }
-    h1{
-      margin:0;
-      font-size:20px;
-      letter-spacing:0.2px;
-    }
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-    }
-    .nav{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    button{
-      cursor:pointer;
-      border:2px solid rgba(139,211,255,0.25);
-      background: linear-gradient(180deg, #11244a, #0a1430);
+      font-family:"Vazirmatn", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
-      padding:10px 12px;
-      border-radius:12px;
-      font-weight:700;
-      transition: transform .05s ease, border-color .15s ease;
+      background:
+        radial-gradient(900px 600px at 70% 20%, #17314c 0%, transparent 60%),
+        radial-gradient(900px 600px at 20% 80%, #2b1e40 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:flex;
+      justify-content:center;
+      padding:14px;
     }
-    button:hover{ border-color: rgba(255,79,216,0.6); }
-    button:active{ transform: translateY(1px); }
-    button.secondary{
-      background: linear-gradient(180deg, #0d162b, #091022);
-      color: var(--muted);
-      font-weight:600;
-    }
-
-    main{
-      padding:18px;
+    .app{
+      width:min(980px, 100%);
       display:grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 340px 1fr;
       gap:14px;
     }
     @media (max-width: 860px){
-      main{ grid-template-columns: 1fr; }
+      .app{ grid-template-columns: 1fr; }
+    }
+    .panel{
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow: 0 18px 50px var(--shadow);
+      overflow:hidden;
+    }
+    header{
+      padding:14px 14px 10px;
+      border-bottom:1px solid var(--border);
+    }
+    h1{ margin:0; font-size:18px; font-weight:900; letter-spacing:0.2px; }
+    .sub{ margin:6px 0 0; color:var(--muted); font-size:13px; line-height:1.6; }
+
+    .content{ padding:14px; }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .col{ display:flex; flex-direction:column; gap:10px; }
+
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+      color: var(--text);
+      border-radius:14px;
+      padding:12px 12px;
+      font-weight:800;
+      cursor:pointer;
+      user-select:none;
+      min-height:46px;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      border-color: rgba(124,231,214,0.45);
+      background: linear-gradient(180deg, rgba(124,231,214,0.16), rgba(0,0,0,0.18));
+    }
+    .btn.soft{
+      border-color: rgba(183,162,255,0.35);
+      background: linear-gradient(180deg, rgba(183,162,255,0.12), rgba(0,0,0,0.18));
     }
 
-    .panel{
-      background: linear-gradient(180deg, rgba(124,247,255,0.06), transparent 22%),
-                  linear-gradient(180deg, var(--panel2), #060a14);
-      border:2px solid rgba(139,211,255,0.16);
-      border-radius:16px;
-      padding:16px;
-      position:relative;
+    input{
+      width:100%;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+      color: var(--text);
+      padding:12px 12px;
+      font-size:15px;
+      outline:none;
+      min-height:46px;
     }
-    .panel h2{
-      margin:0 0 10px;
-      font-size:16px;
-    }
-    .tiny{
-      color: var(--muted);
-      font-size:12px;
-      line-height:1.6;
-      margin-top:6px;
-    }
-    .statbar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .pill{
-      border:1px solid rgba(139,211,255,0.18);
-      background: rgba(0,0,0,0.25);
-      padding:8px 10px;
+    label{ font-size:12px; color:var(--muted); }
+
+    .chip{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.16);
+      padding:10px 12px;
       border-radius:999px;
       font-size:12px;
       color: var(--muted);
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
     }
 
-    .card{
-      display:grid;
-      grid-template-columns: 1fr;
+    .stage{
+      min-height:520px;
+      display:flex;
+      flex-direction:column;
       gap:12px;
+    }
+    .bigCard{
+      flex:1;
+      display:flex;
+      flex-direction:column;
       align-items:center;
-      padding:16px;
-      border-radius:16px;
-      border:2px solid rgba(255,79,216,0.25);
-      background: linear-gradient(180deg, rgba(255,79,216,0.10), transparent 30%),
-                  rgba(0,0,0,0.25);
+      justify-content:center;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: radial-gradient(500px 300px at 50% 30%, rgba(124,231,214,0.10), transparent 60%),
+                  rgba(0,0,0,0.14);
+      padding:18px;
+      text-align:center;
     }
     .glyph{
-      font-size:90px;
+      font-size:110px;
       line-height:1;
-      text-align:center;
-      margin-top:6px;
-      text-shadow: 0 8px 0 rgba(0,0,0,0.25);
+      font-weight:900;
+      margin-bottom:10px;
+      text-shadow: 0 12px 0 rgba(0,0,0,0.18);
     }
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
+    .prompt{
+      font-size:16px;
+      font-weight:800;
+      margin:0;
     }
-    .kv{
-      display:flex;
-      align-items:baseline;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid rgba(139,211,255,0.18);
-      background: rgba(0,0,0,0.18);
+    .hint{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.8;
+      max-width: 42ch;
     }
-    .k{ color: var(--muted); font-size:12px; }
-    .v{ font-weight:800; font-size:14px; }
 
     .choices{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:10px;
-      margin-top:10px;
+      width:100%;
+      max-width:520px;
+      margin-top:14px;
     }
     .choice{
-      text-align:center;
-      font-size:24px;
+      font-size:42px;
       padding:14px 10px;
-      border-radius:14px;
-      border:2px solid rgba(139,211,255,0.18);
-      background: rgba(0,0,0,0.22);
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,0.14);
+      cursor:pointer;
       user-select:none;
+      min-height:76px;
     }
-    .choice.correct{
-      border-color: rgba(102,255,153,0.65);
-      box-shadow: 0 0 0 3px rgba(102,255,153,0.15) inset;
+    .choice.good{
+      border-color: rgba(134,247,166,0.55);
+      box-shadow: inset 0 0 0 3px rgba(134,247,166,0.12);
     }
-    .choice.wrong{
-      border-color: rgba(255,79,216,0.65);
-      box-shadow: 0 0 0 3px rgba(255,79,216,0.15) inset;
+    .choice.bad{
+      border-color: rgba(255,180,180,0.45);
+      box-shadow: inset 0 0 0 3px rgba(255,180,180,0.10);
     }
 
-    .footer{
-      padding:12px 18px 16px;
-      border-top:1px solid rgba(139,211,255,0.18);
-      color: rgba(215,246,255,0.72);
+    .footerNote{
       font-size:12px;
-      display:flex;
-      gap:8px;
-      justify-content:space-between;
-      flex-wrap:wrap;
-    }
-    .pixel{
-      font-family:"Press Start 2P", monospace;
-      font-size:10px;
-      color:#7cf7ff;
+      color: rgba(234,246,255,0.72);
+      border-top:1px solid var(--border);
+      padding:10px 14px;
+      line-height:1.7;
     }
   </style>
 </head>
+
 <body>
-  <div class="crt" role="application" aria-label="Letter Quest">
-    <header>
-      <div class="title">
-        <div class="badge">90s EDU</div>
-        <div>
-          <h1>Letter Quest — آموزش الفبای فارسی</h1>
-          <p class="sub">یادگیری با کارت، آزمون، و تکرار هوشمند</p>
+  <div class="app">
+    <!-- Left: Profiles + Controls -->
+    <section class="panel">
+      <header>
+        <h1>باغِ حروف</h1>
+        <p class="sub">آموزش آرام و کودکانه‌ی حروف فارسی (۴ سال و زیر)</p>
+      </header>
+      <div class="content col">
+        <div class="col" style="gap:6px;">
+          <label>کودک</label>
+          <div class="row" id="profileRow"></div>
+        </div>
+
+        <div class="col" style="gap:6px;">
+          <label>کودک جدید</label>
+          <input id="newName" placeholder="مثلاً: آوا" />
+          <button class="btn primary" id="addProfile">افزودن پروفایل</button>
+        </div>
+
+        <div class="row">
+          <span class="chip">حالت: <b id="modeLabel">آشنایی با حرف</b></span>
+          <span class="chip">حروفِ امروز: <b id="setLabel">م، ب، آ</b></span>
+        </div>
+
+        <div class="col">
+          <button class="btn soft" id="modeCreature">حالتِ آشنایی</button>
+          <button class="btn soft" id="modeSound">حالتِ صدا</button>
+          <button class="btn" id="next">بعدی</button>
+          <button class="btn" id="sayAgain">دوباره بگو 🔊</button>
         </div>
       </div>
-      <div class="nav">
-        <button id="modeLearn">حالت یادگیری</button>
-        <button id="modeQuiz" class="secondary">حالت آزمون</button>
-        <button id="shuffle" class="secondary">تصادفی</button>
+
+      <div class="footerNote">
+        نکته برای بزرگ‌ترها: این برنامه «امتیاز و زمان» ندارد تا کودک احساس فشار نکند. هدف، آشناییِ شیرین و تکرارِ آرام است.
       </div>
-    </header>
+    </section>
 
-    <main>
-      <section class="panel">
-        <h2 id="panelTitle">کارت حرف</h2>
+    <!-- Right: Stage -->
+    <section class="panel">
+      <header>
+        <h1 id="stageTitle">حرفِ امروز</h1>
+        <p class="sub" id="stageSub">بزن روی دکمه‌ی «دوباره بگو» و با هم تکرار کنید.</p>
+      </header>
+      <div class="content stage">
+        <div class="bigCard" id="bigCard">
+          <div class="glyph" id="glyph">م</div>
+          <p class="prompt" id="prompt">این «م» است.</p>
+          <p class="hint" id="hint">م مثل «مامان». ❤️</p>
 
-        <div class="card" aria-live="polite">
-          <div class="glyph" id="glyph">ا</div>
-
-          <div class="row">
-            <div class="kv"><span class="k">نام</span><span class="v" id="name">الف</span></div>
-            <div class="kv"><span class="k">آوا</span><span class="v" id="sound">/â/ یا /a/</span></div>
-            <div class="kv"><span class="k">نمونه</span><span class="v" id="example">آب 💧</span></div>
-          </div>
-
-          <div class="row" style="margin-top:4px;">
-            <button id="prev" class="secondary">قبلی</button>
-            <button id="speak">🔊 تلفظ</button>
-            <button id="next">بعدی</button>
-          </div>
-
-          <p class="tiny" id="note">
-            نکته: خیلی از حروف شبیه هم‌اند؛ این بازی بعداً آن‌ها را به شکل «گروه‌های اشتباه‌گیر» تمرین می‌دهد.
-          </p>
+          <div class="choices" id="choices" style="display:none;"></div>
         </div>
-
-        <div class="statbar">
-          <div class="pill">سطح: <b id="level">۱</b></div>
-          <div class="pill">امتیاز: <b id="score">۰</b></div>
-          <div class="pill">تلاش‌ها: <b id="attempts">۰</b></div>
-          <div class="pill">دقت: <b id="accuracy">۰٪</b></div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <h2>آزمون سریع</h2>
-        <p class="tiny" id="quizPrompt">کدام گزینه «الف» است؟</p>
-
-        <div class="choices" id="choices"></div>
-
-        <div class="row" style="margin-top:12px; justify-content:space-between;">
-          <button id="newQuestion">سؤال جدید</button>
-          <button id="reset" class="secondary">ریست امتیاز</button>
-        </div>
-
-        <p class="tiny">
-          پیشنهاد طراحی: بعداً می‌توانیم «فرم‌های اتصال» (ابتدایی/میانی/پایانی) را به صورت مرحله‌های جدا اضافه کنیم.
-        </p>
-      </section>
-    </main>
-
-    <div class="footer">
-      <span>راهنما: با «حالت یادگیری» جلو برو، بعد در «آزمون» سرعت بگیر.</span>
-      <span class="pixel">INSERT COIN? (نه 😄)</span>
-    </div>
+      </div>
+    </section>
   </div>
 
 <script>
-  // --- Data: minimal starter set. Expand this list freely.
-  // fields:
-  // glyph: letter
-  // name: Persian letter name
-  // sound: a learner-friendly sound hint
-  // example: simple word + emoji
-  const LETTERS = [
-    { glyph:"ا", name:"الف", sound:"/â/ یا /a/", example:"آب 💧" },
-    { glyph:"ب", name:"بِ", sound:"/b/", example:"بابا 👨" },
-    { glyph:"پ", name:"پِ", sound:"/p/", example:"پنیر 🧀" },
-    { glyph:"ت", name:"تِ", sound:"/t/", example:"توت 🍇" },
-    { glyph:"ث", name:"ثِ", sound:"مثل «س»", example:"ثروت 💰" },
-    { glyph:"ج", name:"جیم", sound:"/j/", example:"جوجه 🐥" },
-    { glyph:"چ", name:"چِ", sound:"/ch/", example:"چای 🍵" },
-    { glyph:"ح", name:"حِ", sound:"هٔ نفس‌دار", example:"حیاط 🏡" },
-    { glyph:"خ", name:"خِ", sound:"/kh/", example:"خرس 🐻" },
-    { glyph:"د", name:"دال", sound:"/d/", example:"درخت 🌳" },
-    { glyph:"ر", name:"رِ", sound:"/r/", example:"راه 🛣️" },
-    { glyph:"ز", name:"زِ", sound:"/z/", example:"زرافه 🦒" },
-    { glyph:"ژ", name:"ژِ", sound:"/zh/", example:"ژاله ❄️" },
-    { glyph:"س", name:"سین", sound:"/s/", example:"سیب 🍎" },
-    { glyph:"ش", name:"شین", sound:"/sh/", example:"شیر 🦁" },
-    { glyph:"ف", name:"فِ", sound:"/f/", example:"فیل 🐘" },
-    { glyph:"ق", name:"قاف", sound:"/gh/ یا /q/", example:"قلم ✏️" },
-    { glyph:"ک", name:"کاف", sound:"/k/", example:"کتاب 📘" },
-    { glyph:"گ", name:"گاف", sound:"/g/", example:"گاو 🐄" },
-    { glyph:"ل", name:"لام", sound:"/l/", example:"لامپ 💡" },
-    { glyph:"م", name:"میم", sound:"/m/", example:"ماه 🌙" },
-    { glyph:"ن", name:"نون", sound:"/n/", example:"نان 🍞" },
-    { glyph:"و", name:"واو", sound:"/v/ یا /u/ یا /o/", example:"ورزش 🏃" },
-    { glyph:"ه", name:"ه", sound:"/h/ یا ـهٔ پایانی", example:"هوا ☁️" },
-    { glyph:"ی", name:"ی", sound:"/y/ یا /i/", example:"یخ 🧊" }
+  // --- Minimal first letter set: meaningful + distinct for under-4
+  const DEFAULT_SET = [
+    { glyph:"م", name:"میم", sound:"مِه", example:"مامان ❤️" },
+    { glyph:"ب", name:"بِ", sound:"بِ", example:"بابا 👨" },
+    { glyph:"آ", name:"آ", sound:"آاا", example:"آب 💧" },
   ];
 
-  // --- State
-  let idx = 0;
-  let mode = "learn"; // learn | quiz
-  let score = 0, attempts = 0, correct = 0;
-  let level = 1;
+  // You can expand later with additional sets (3–6 letters per set)
+  const SETS = [
+    { id:"set1", label:"م، ب، آ", letters: DEFAULT_SET },
+  ];
+
+  // --- Local storage keys
+  const LS_KEY = "baghe_horuf_profiles_v1";
+
+  // --- App state
+  let profiles = loadProfiles();
+  if (profiles.length === 0) {
+    profiles = [
+      { id: uid(), name: "آوا", setId: "set1", idx: 0, stats: { seen:0, correct:0, wrong:0 } }
+    ];
+    saveProfiles();
+  }
+
+  let activeId = profiles[0].id;
+  let mode = "creature"; // "creature" | "sound"
 
   // --- Elements
   const el = (id) => document.getElementById(id);
+  const profileRow = el("profileRow");
+  const newName = el("newName");
+  const modeLabel = el("modeLabel");
+  const setLabel = el("setLabel");
+  const stageTitle = el("stageTitle");
+  const stageSub = el("stageSub");
+
   const glyphEl = el("glyph");
-  const nameEl = el("name");
-  const soundEl = el("sound");
-  const exampleEl = el("example");
-  const panelTitleEl = el("panelTitle");
-  const quizPromptEl = el("quizPrompt");
+  const promptEl = el("prompt");
+  const hintEl = el("hint");
   const choicesEl = el("choices");
 
-  const scoreEl = el("score");
-  const attemptsEl = el("attempts");
-  const accuracyEl = el("accuracy");
-  const levelEl = el("level");
-
-  function renderCard(){
-    const L = LETTERS[idx];
-    glyphEl.textContent = L.glyph;
-    nameEl.textContent = L.name;
-    soundEl.textContent = L.sound;
-    exampleEl.textContent = L.example;
+  // --- Helpers
+  function uid(){ return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+  function loadProfiles(){
+    try{ return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); } catch { return []; }
   }
-
-  function speakLetter(){
-    const L = LETTERS[idx];
-    // SpeechSynthesis may not have Persian voice on all systems; still useful when it works.
-    const msg = new SpeechSynthesisUtterance(`${L.name}. ${L.glyph}. مثال: ${L.example.replace(/[\u{1F300}-\u{1FAFF}]/gu,"")}`);
+  function saveProfiles(){
+    localStorage.setItem(LS_KEY, JSON.stringify(profiles));
+  }
+  function getActive(){
+    return profiles.find(p => p.id === activeId) || profiles[0];
+  }
+  function getSet(setId){
+    return SETS.find(s => s.id === setId) || SETS[0];
+  }
+  function currentLetter(){
+    const p = getActive();
+    const set = getSet(p.setId);
+    return set.letters[p.idx % set.letters.length];
+  }
+  function speak(text){
+    // Persian-only audio. Will work better on devices with fa voice installed.
+    const msg = new SpeechSynthesisUtterance(text);
     msg.lang = "fa-IR";
+    msg.rate = 0.85;   // calm
+    msg.pitch = 1.05;  // gentle
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(msg);
   }
-
-  function updateStats(){
-    scoreEl.textContent = String(score);
-    attemptsEl.textContent = String(attempts);
-    const acc = attempts ? Math.round((correct/attempts)*100) : 0;
-    accuracyEl.textContent = `${acc}٪`;
-    levelEl.textContent = String(level);
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
-  function randInt(n){ return Math.floor(Math.random()*n); }
-
-  function newQuestion(){
-    // Pick target = current idx (learn mode) or random (quiz mode)
-    const targetIndex = (mode === "learn") ? idx : randInt(LETTERS.length);
-    const target = LETTERS[targetIndex];
-
-    quizPromptEl.textContent = `کدام گزینه «${target.name}» است؟`;
-
-    // build 4 choices
-    const options = new Set([targetIndex]);
-    while(options.size < 4){
-      options.add(randInt(LETTERS.length));
-    }
-    const optionArr = Array.from(options).map(i => ({i, L: LETTERS[i]}));
-
-    // shuffle
-    for(let i=optionArr.length-1;i>0;i--){
-      const j = randInt(i+1);
-      [optionArr[i], optionArr[j]] = [optionArr[j], optionArr[i]];
-    }
-
-    // render
-    choicesEl.innerHTML = "";
-    optionArr.forEach(({i, L}) => {
+  // --- UI rendering
+  function renderProfiles(){
+    profileRow.innerHTML = "";
+    profiles.forEach(p => {
       const b = document.createElement("button");
-      b.className = "choice";
-      b.type = "button";
-      b.textContent = L.glyph;
-      b.onclick = () => handleAnswer(i === targetIndex, b, targetIndex);
-      choicesEl.appendChild(b);
+      b.className = "btn" + (p.id === activeId ? " primary" : "");
+      b.style.flex = "1";
+      b.textContent = p.name;
+      b.onclick = () => {
+        activeId = p.id;
+        renderProfiles();
+        renderStage();
+        gentleAnnounce();
+      };
+      profileRow.appendChild(b);
     });
   }
 
-  function handleAnswer(isCorrect, btn, targetIndex){
-    attempts++;
-    if(isCorrect){
-      correct++;
-      score += 10;
-      btn.classList.add("correct");
-      // very simple leveling: every 50 points
-      level = 1 + Math.floor(score / 50);
-      // in learn mode, advance the card after a correct answer
-      if(mode === "learn"){
-        idx = (idx + 1) % LETTERS.length;
-        renderCard();
-      }
+  function renderStage(){
+    const p = getActive();
+    const set = getSet(p.setId);
+    setLabel.textContent = set.label;
+
+    if(mode === "creature"){
+      modeLabel.textContent = "آشنایی با حرف";
+      stageTitle.textContent = "حرفِ امروز";
+      stageSub.textContent = "با هم گوش بدیم و تکرار کنیم.";
+      choicesEl.style.display = "none";
+      const L = currentLetter();
+      glyphEl.textContent = L.glyph;
+      promptEl.textContent = `این «${L.glyph}» است.`;
+      hintEl.textContent = `${L.glyph} مثل «${L.example}».`;
     } else {
-      score = Math.max(0, score - 5);
-      btn.classList.add("wrong");
-      // tiny penalty: in learn mode, go back one to reinforce
-      if(mode === "learn"){
-        idx = (idx - 1 + LETTERS.length) % LETTERS.length;
-        renderCard();
-      }
+      modeLabel.textContent = "بازیِ صدا";
+      stageTitle.textContent = "صدا رو پیدا کن";
+      stageSub.textContent = "گوش بده… بعد حرفِ درست رو لمس کن.";
+      buildSoundQuestion();
     }
-    updateStats();
-    // lock choices briefly
+  }
+
+  function gentleAnnounce(){
+    const p = getActive();
+    speak(`${p.name} جان، بریم توی باغِ حروف. آروم و نرم. 😊`);
+  }
+
+  // --- Sound Match mode
+  function buildSoundQuestion(){
+    const p = getActive();
+    const set = getSet(p.setId);
+    const letters = set.letters;
+
+    // target is current idx letter
+    const target = letters[p.idx % letters.length];
+
+    glyphEl.textContent = "♪";
+    promptEl.textContent = "کدوم صداش اینه؟";
+    hintEl.textContent = "اول گوش بده، بعد انتخاب کن.";
+
+    // 3 choices (or all if set smaller)
+    const pool = shuffle(letters);
+    const options = new Set([target.glyph]);
+    for(const L of pool){
+      if(options.size >= Math.min(3, letters.length)) break;
+      options.add(L.glyph);
+    }
+    const optionArr = shuffle(Array.from(options));
+
+    choicesEl.innerHTML = "";
+    choicesEl.style.display = "grid";
+    optionArr.forEach(g => {
+      const btn = document.createElement("button");
+      btn.className = "choice";
+      btn.textContent = g;
+      btn.onclick = () => onSoundAnswer(g === target.glyph, btn, target);
+      choicesEl.appendChild(btn);
+    });
+
+    // Speak the target sound (Persian-only)
+    speak(`گوش کن… ${target.sound}`);
+  }
+
+  function onSoundAnswer(ok, btn, target){
+    const p = getActive();
+    p.stats.seen++;
+
+    // disable all
     Array.from(choicesEl.children).forEach(c => c.disabled = true);
-    setTimeout(newQuestion, 550);
+
+    if(ok){
+      p.stats.correct++;
+      btn.classList.add("good");
+      speak(`آفرین. ${target.glyph} مثل ${target.example}.`);
+      // move forward gently
+      p.idx = (p.idx + 1);
+    } else {
+      p.stats.wrong++;
+      btn.classList.add("bad");
+      // soft feedback, no “wrong”
+      speak(`بیاین دوباره گوش بدیم… ${target.sound}`);
+      // keep same idx for repetition
+    }
+
+    saveProfiles();
+    setTimeout(() => {
+      renderStage();
+    }, 650);
   }
 
   // --- Controls
-  el("prev").onclick = () => { idx = (idx - 1 + LETTERS.length) % LETTERS.length; renderCard(); if(mode==="learn") newQuestion(); };
-  el("next").onclick = () => { idx = (idx + 1) % LETTERS.length; renderCard(); if(mode==="learn") newQuestion(); };
-  el("shuffle").onclick = () => { idx = randInt(LETTERS.length); renderCard(); newQuestion(); };
-
-  el("speak").onclick = speakLetter;
-
-  el("modeLearn").onclick = () => {
-    mode = "learn";
-    panelTitleEl.textContent = "کارت حرف (یادگیری)";
-    el("modeLearn").classList.remove("secondary");
-    el("modeQuiz").classList.add("secondary");
-    renderCard();
-    newQuestion();
+  el("addProfile").onclick = () => {
+    const name = (newName.value || "").trim();
+    if(!name) { speak("اسمِ کودک رو بنویس."); return; }
+    profiles.push({ id: uid(), name, setId:"set1", idx:0, stats:{seen:0, correct:0, wrong:0} });
+    newName.value = "";
+    activeId = profiles[profiles.length-1].id;
+    saveProfiles();
+    renderProfiles();
+    renderStage();
+    speak(`${name} اضافه شد. خوش اومدی. 😊`);
   };
 
-  el("modeQuiz").onclick = () => {
-    mode = "quiz";
-    panelTitleEl.textContent = "کارت حرف (مرجع)";
-    el("modeQuiz").classList.remove("secondary");
-    el("modeLearn").classList.add("secondary");
-    renderCard();
-    newQuestion();
+  el("modeCreature").onclick = () => { mode = "creature"; renderStage(); speak("حالتِ آشنایی."); };
+  el("modeSound").onclick = () => { mode = "sound"; renderStage(); speak("حالتِ صدا."); };
+
+  el("next").onclick = () => {
+    const p = getActive();
+    p.idx = p.idx + 1;
+    saveProfiles();
+    renderStage();
+    if(mode === "creature"){
+      const L = currentLetter();
+      speak(`${L.glyph}. ${L.sound}. مثل ${L.example}.`);
+    } else {
+      // sound question will speak automatically
+    }
   };
 
-  el("newQuestion").onclick = newQuestion;
-
-  el("reset").onclick = () => {
-    score = 0; attempts = 0; correct = 0; level = 1;
-    updateStats();
-    newQuestion();
+  el("sayAgain").onclick = () => {
+    if(mode === "creature"){
+      const L = currentLetter();
+      speak(`این ${L.glyph} است. ${L.sound}. ${L.glyph} مثل ${L.example}.`);
+    } else {
+      const p = getActive();
+      const set = getSet(p.setId);
+      const target = set.letters[p.idx % set.letters.length];
+      speak(`گوش کن… ${target.sound}`);
+    }
   };
 
   // Init
-  renderCard();
-  updateStats();
-  newQuestion();
+  renderProfiles();
+  renderStage();
 </script>
 </body>
 </html>
