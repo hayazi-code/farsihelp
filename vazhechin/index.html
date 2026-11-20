@@ -192,7 +192,7 @@ main>footer{display:none}
 main{position:relative}
 /* The focus toggle lives outside the header, so it remains accessible when the header disappears. */
 #focusToggle{
- position:absolute;z-index:20;top:calc(env(safe-area-inset-top) + 27px);right:28px;
+ position:absolute;z-index:20;top:calc(env(safe-area-inset-top) + 50px);right:28px;transform:translateY(-50%);
  width:44px;height:44px;min-width:44px;display:inline-flex;align-items:center;justify-content:center;
  padding:0;color:var(--deep);background:var(--gold);
  border:2.5px solid var(--deep);border-radius:13px;box-shadow:2px 3px 0 var(--deep);
@@ -200,25 +200,25 @@ main{position:relative}
 }
 #focusToggle svg{width:22px;height:22px;display:block;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round}
 #focusToggle .focus-exit{display:none}
-#focusToggle:active{transform:translate(1px,2px);box-shadow:1px 1px 0 var(--deep)}
+#focusToggle:active{transform:translate(1px,calc(-50% + 2px));box-shadow:1px 1px 0 var(--deep)}
 #focusToggle:focus-visible{outline:3px solid var(--cream);outline-offset:4px}
 @media(max-width:600px) and (orientation:portrait) and (max-height:799px){
  .actions button{height:56px;min-height:56px;font-size:19px}
  .extra-controls button{height:48px;min-height:48px;font-size:17px}
  #msg{height:20px;min-height:20px;font-size:14px}
- #focusToggle{top:calc(env(safe-area-inset-top) + 18px)}
+ #focusToggle{top:calc(env(safe-area-inset-top) + 45px)}
 }
 @media(max-width:600px) and (orientation:portrait) and (max-height:700px){
  .actions button{height:52px;min-height:52px;font-size:17px;padding-inline:3px}
  .extra-controls button{height:44px;min-height:44px;font-size:16px}
  #msg{height:18px;min-height:18px;font-size:13px}
- #focusToggle{top:calc(env(safe-area-inset-top) + 13px);right:25px;width:40px;height:40px;min-width:40px}
+ #focusToggle{top:calc(env(safe-area-inset-top) + 40.5px);right:25px;width:36px;height:36px;min-width:36px}
 }
 @media(max-width:600px) and (orientation:portrait) and (max-height:600px){
  .actions button{height:45px;min-height:45px;font-size:15px}
  .extra-controls button{height:41px;min-height:41px;font-size:14px}
  #msg{height:15px;min-height:15px;font-size:12px}
- #focusToggle{top:calc(env(safe-area-inset-top) + 10px)}
+ #focusToggle{top:calc(env(safe-area-inset-top) + 35.5px)}
 }
 /* Focus Mode hides all nonessential navigation, scores and destructive reset control. */
 body.focus-mode{background:var(--blue)}
@@ -234,7 +234,7 @@ body.focus-mode #focusToggle{
  position:fixed;z-index:30;
  top:calc(env(safe-area-inset-top) + 13px);right:15px;
  height:47px;min-width:88px;width:auto;padding:5px 14px;
- font-size:17px;line-height:1.4;background:var(--cream);
+ font-size:17px;line-height:1.4;background:var(--cream);transform:none;
  border-radius:12px
 }
 body.focus-mode #focusToggle svg{display:none}
