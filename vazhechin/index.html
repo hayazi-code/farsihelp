@@ -216,9 +216,9 @@ function refresh(){
  saved[current]=[...found(),pretty(w)];
  try{localStorage.setItem("vazhechin-v01",JSON.stringify(saved))}catch{}
  entry="";show();refresh();
- if(!wonBefore&&hasWon())return message("🏆 آفرین! برندهٔ این جدول شدی!");
+ if(!wonBefore&&hasWon())return message("🏆 جدول کامل شد");
  const pts=fa(points(w)),total=found().reduce((n,x)=>n+points(x),0);
- if(total>=WIN_TARGET&&!found().some(isPangram))return message("✦ امتیاز کافی است؛ یک هفت‌نشان پیدا کن!");
- message(isPangram(w)?"✦ هفت‌نشان! "+pts+" امتیاز":"آفرین! "+pts+" امتیاز");
+ if(total>=WIN_TARGET&&!found().some(isPangram))return message("امتیاز کافی است؛ هفت‌نشان لازم است");
+ message(isPangram(w)?"✦ هفت‌نشان · "+pts+" امتیاز":pts+" امتیاز");
 }P.forEach((x,i)=>{let op=document.createElement("option");op.value=i;op.textContent="جدول "+fa(i+1);$("level").append(op)});$("level").onchange=e=>load(Number(e.target.value));$("submit").onclick=submit;$("erase").onclick=()=>{entry=entry.slice(0,-1);show();message("")};$("halfspace").onclick=()=>{if(entry && !entry.endsWith("‌")){entry+="‌";show();message("")}};$("shuffle").onclick=()=>{let a=order.slice(0,6);for(let i=5;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}order=[...a,p().c];board()};const openFound=()=>{$("foundSheet").classList.add("open");$("foundBackdrop").classList.add("open")};const closeFound=()=>{$("foundSheet").classList.remove("open");$("foundBackdrop").classList.remove("open")};$("showFound").onclick=openFound;$("closeFound").onclick=closeFound;$("foundBackdrop").onclick=closeFound;$("help").onclick=()=>$("modal").classList.add("open");$("close").onclick=()=>$("modal").classList.remove("open");$("modal").onclick=e=>{if(e.target===$("modal"))$("modal").classList.remove("open")};$("reset").onclick=()=>{if(confirm("همهٔ واژه‌ها و امتیازهای این جدول پاک شوند و از نو شروع کنید؟")){delete saved[current];localStorage.setItem("vazhechin-v01",JSON.stringify(saved));load(current)}};document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeFound();$("modal").classList.remove("open");return}if($("foundSheet").classList.contains("open"))return;if(e.key==="Enter")submit();else if(e.key==="Backspace"){entry=entry.slice(0,-1);show()}else if(e.key===" "){if(entry&&!entry.endsWith("‌"))entry+="‌";show();e.preventDefault()}else{let c=e.key.replace(/ك/g,"ک").replace(/ي/g,"ی");if(p().a.includes(c)){entry+=c;show()}}});load(0);
 </script></body></html>
