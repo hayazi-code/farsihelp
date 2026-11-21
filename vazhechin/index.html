@@ -1914,7 +1914,7 @@
           </div>
           <div class="extra-controls">
             <button id="hint" type="button" aria-label="نمایش راهنمای واژه">
-              راهنما
+              راهنما <span id="hintRemaining" aria-hidden="true">۵</span>
             </button>
             <button
               id="halfspace"
@@ -1996,6 +1996,7 @@
           میان‌بُرها: Enter برای ثبت، Backspace برای حذف، Space برای نیم‌فاصله و
           Esc برای بستن پنجره‌ها یا خروج از حالت تمرکز.
         </p>
+        <p class="help-note">برای هر جدول، حداکثر پنج راهنما در دسترس است.</p>
       </div>
     </div>
     <div
@@ -3961,6 +3962,7 @@
       const STORAGE_KEY = "vazhechin-v02";
       const LEGACY_STORAGE_KEY = "vazhechin-v01";
       const SAVE_VERSION = 3;
+      const HINT_LIMIT = 5;
       const THEMES = new Set(["classic", "night", "forest", "rose"]);
       const validBoardIndex = (value) =>
         Number.isInteger(value) && value >= 0 && value < P.length;
@@ -4092,20 +4094,27 @@
         found().reduce((n, w) => n + points(w), 0) >= WIN_TARGET &&
         found().some(isPangram);
       const updateHintButton = () => {
-        const stage = (state.hints[current] || 0) % 3;
+        const used = Math.min(state.hints[current] || 0, HINT_LIMIT);
+        const stage = used % 3;
+        const remaining = HINT_LIMIT - used;
+        $("hintRemaining").textContent = fa(remaining);
         $("hint").setAttribute(
           "aria-label",
-          `نمایش راهنمای مرحله ${fa(stage + 1)} از ۳`,
+          remaining
+            ? `نمایش راهنمای مرحله ${fa(stage + 1)} از ۳؛ ${fa(remaining)} راهنما مانده`
+            : "سقف پنج راهنمای این جدول استفاده شده است",
         );
       };
       const showHint = () => {
+        const step = state.hints[current] || 0;
+        if (step >= HINT_LIMIT)
+          return message("سقف پنج راهنمای این جدول استفاده شده است", "info");
         const candidates = p().w.filter(
           (word) =>
             !found().some((savedWord) => clean(savedWord) === clean(word)),
         );
         if (!candidates.length)
           return message("راهنمای ویژه‌ای باقی نمانده؛ آفرین!", "info");
-        const step = state.hints[current] || 0;
         const word = clean(
           candidates[Math.floor(step / 3) % candidates.length],
         );
@@ -4352,6 +4361,7 @@
           )
         ) {
           delete state.boards[current];
+          delete state.hints[current];
           persistState();
           updateSaveStatus();
           load(current);

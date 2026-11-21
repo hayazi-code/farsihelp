@@ -51,6 +51,16 @@ test("offers progressive hints without changing score", async ({ page }) => {
   await expect(page.locator("#score")).toHaveText("۰");
   await page.locator("#hint").click();
   await expect(page.locator("#msg")).toContainText("•");
+  await page.locator("#hint").click();
+  await page.locator("#hint").click();
+  await page.locator("#hint").click();
+  await expect(page.locator("#hintRemaining")).toHaveText("۰");
+  await page.locator("#hint").click();
+  await expect(page.locator("#msg")).toContainText("سقف پنج راهنما");
+  const saved = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("vazhechin-v02")),
+  );
+  expect(saved.hints[0]).toBe(5);
 });
 
 test("saves the selected color scheme", async ({ page }) => {
