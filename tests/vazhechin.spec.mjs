@@ -53,20 +53,6 @@ test("offers progressive hints without changing score", async ({ page }) => {
   await expect(page.locator("#msg")).toContainText("•");
 });
 
-test("opens an exact definition lookup for a found word", async ({ page }) => {
-  await page.goto("/vazhechin/");
-  await typeGameWord(page, "روزنامه");
-  await page.locator("#showFound").click();
-  await page.getByRole("button", { name: "دیدن معنی روزنامه" }).click();
-  await expect(page.locator("#definitionModal")).toHaveClass(/open/);
-  await expect(page.locator("#definitionLink")).toHaveAttribute(
-    "href",
-    /vajehyab\.com\/\?q=/,
-  );
-  await page.keyboard.press("Escape");
-  await expect(page.locator("#definitionModal")).not.toHaveClass(/open/);
-});
-
 test("saves the selected color scheme", async ({ page }) => {
   await page.goto("/vazhechin/");
   await page.locator("#settings").click();

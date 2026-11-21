@@ -670,7 +670,7 @@
         overflow-y: auto;
         align-items: flex-start;
       }
-      #words button {
+      #words span {
         display: inline-block;
         padding: 6px 10px;
         background: var(--cream);
@@ -680,7 +680,7 @@
         font-size: 14px;
         font-weight: 700;
       }
-      #words button.pangram-chip {
+      #words span.pangram-chip {
         background: var(--turq);
       }
       /* Help dialog */
@@ -1779,29 +1779,13 @@
       #hint {
         background: var(--sun);
       }
-      .definition-card h2,
       .settings-card h2 {
         margin: 0;
         font-size: 24px;
       }
-      .definition-card p,
       .settings-card p {
         font-size: 15px;
         line-height: 1.75;
-      }
-      .definition-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 50px;
-        padding: 8px 12px;
-        border: 2.5px solid var(--deep);
-        border-radius: 13px;
-        box-shadow: var(--shadow);
-        background: var(--turq);
-        color: var(--deep);
-        font-weight: 700;
-        text-decoration: none;
       }
       .theme-grid {
         display: grid;
@@ -2012,31 +1996,6 @@
           میان‌بُرها: Enter برای ثبت، Backspace برای حذف، Space برای نیم‌فاصله و
           Esc برای بستن پنجره‌ها یا خروج از حالت تمرکز.
         </p>
-      </div>
-    </div>
-    <div
-      id="definitionModal"
-      class="dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="definitionTitle"
-    >
-      <div class="definition-card">
-        <div class="help-header">
-          <h2 id="definitionTitle">معنی واژه</h2>
-          <button type="button" id="closeDefinition" aria-label="بستن معنی">
-            ×
-          </button>
-        </div>
-        <p id="definitionWord"></p>
-        <p>برای دیدن معنی، کاربرد و منبع، این واژه را در واژه‌یاب باز کنید.</p>
-        <a
-          id="definitionLink"
-          class="definition-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          >دیدن معنی در واژه‌یاب</a
-        >
       </div>
     </div>
     <div
@@ -4218,11 +4177,8 @@
         for (const w of f
           .slice()
           .sort((a, b) => persianWordOrder.compare(clean(a), clean(b)))) {
-          let chip = document.createElement("button");
-          chip.type = "button";
+          let chip = document.createElement("span");
           chip.textContent = (isPangram(w) ? "✦ " : "") + pretty(w);
-          chip.setAttribute("aria-label", `دیدن معنی ${pretty(w)}`);
-          chip.onclick = () => openDefinition(w, chip);
           if (isPangram(w)) chip.classList.add("pangram-chip");
           $("words").append(chip);
         }
@@ -4376,18 +4332,6 @@
       $("close").onclick = () => closeDialog($("modal"));
       $("modal").onclick = (e) => {
         if (e.target === $("modal")) closeDialog($("modal"));
-      };
-      const openDefinition = (word, trigger) => {
-        const displayWord = pretty(word);
-        $("definitionWord").textContent = displayWord;
-        $("definitionLink").href =
-          `https://vajehyab.com/?q=${encodeURIComponent(displayWord)}`;
-        openDialog($("definitionModal"), trigger);
-      };
-      $("closeDefinition").onclick = () => closeDialog($("definitionModal"));
-      $("definitionModal").onclick = (e) => {
-        if (e.target === $("definitionModal"))
-          closeDialog($("definitionModal"));
       };
       $("settings").onclick = () =>
         openDialog($("settingsModal"), $("settings"));
