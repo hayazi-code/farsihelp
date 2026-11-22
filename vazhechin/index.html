@@ -1817,6 +1817,34 @@
         outline: 4px solid var(--deep);
         outline-offset: 2px;
       }
+
+      .found-search{display:flex;flex-direction:column;gap:5px;margin:12px 0 4px}
+      .found-search label{font-size:15px;font-weight:700;color:var(--deep)}
+      #wordSearch{width:100%;min-height:46px;padding:8px 13px;border:2px solid var(--deep);border-radius:12px;
+        color:var(--deep);background:var(--cream);font-family:Estedad,Tahoma,sans-serif;
+        font-size:17px;font-weight:700;line-height:1.4;direction:rtl;text-align:right}
+      #wordSearch::placeholder{color:#5a7180;opacity:1}
+      #wordSearch:focus-visible{outline:3px solid var(--turq);outline-offset:2px}
+      #wordSearchCount{min-height:19px;align-self:flex-start;font-size:13px;font-weight:700;color:var(--deep)}
+      .no-word-results{width:100%;margin:10px 0;color:var(--deep);font-size:16px;font-weight:700;text-align:center}
+      .game-workspace .action-deck #msg[data-kind="success"]:not(:empty),
+      .game-workspace .action-deck #msg[data-kind="pangram"]:not(:empty){
+        width:min(100%,352px);max-width:100%;display:flex;align-items:center;justify-content:center;gap:9px;padding-inline:12px
+      }
+      .feedback-word{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        font-size:18px;font-weight:700;line-height:1.3;direction:rtl}
+      .feedback-points{flex:0 0 auto;white-space:nowrap;font-size:18px;font-weight:700;line-height:1.3}
+      @media(max-width:600px) and (orientation:portrait) and (max-height:799px){
+        .feedback-word,.feedback-points{font-size:16px}
+      }
+      @media(max-width:600px) and (orientation:portrait) and (max-height:700px){
+        .game-workspace .action-deck #msg[data-kind="success"]:not(:empty),
+        .game-workspace .action-deck #msg[data-kind="pangram"]:not(:empty){gap:5px;padding-inline:7px}
+        .feedback-word,.feedback-points{font-size:14px}
+      }
+      @media(max-width:600px) and (orientation:portrait) and (max-height:600px){
+        .feedback-word,.feedback-points{font-size:12px}
+      }
     </style>
   </head>
   <body>
@@ -1957,6 +1985,11 @@
         <p class="pangram-legend" id="pangramDetails">
           ✦ هفت‌نشان: هنوز پیدا نشده
         </p>
+        <div class="found-search">
+          <label for="wordSearch">پیدا کردن واژه</label>
+          <input id="wordSearch" type="search" placeholder="جست‌وجو در واژه‌های من" autocomplete="off" spellcheck="false" aria-controls="words" />
+          <span id="wordSearchCount" role="status" aria-live="polite"></span>
+        </div>
         <div id="words"></div>
       </section>
       <div class="sheet-backdrop" id="foundBackdrop" aria-hidden="true"></div>
@@ -2112,6 +2145,7 @@
           "ناامن",
           "نارو",
           "ناروا",
+          "نارون",
           "نازا",
           "نامور",
           "ناموزون",
@@ -2190,6 +2224,7 @@
           "بابت",
           "باتری",
           "بارت",
+          "باریکتر",
           "باکتری",
           "باکتریایی",
           "بتابد",
@@ -2206,6 +2241,9 @@
           "بکارت",
           "بیات",
           "بیاتی",
+          "بیتدبیر",
+          "بیتربیت",
+          "بیتردید",
           "تابد",
           "تابدار",
           "تابید",
@@ -2264,6 +2302,7 @@
           "تکبیر",
           "تکدر",
           "تکرار",
+          "تکراری",
           "تیتر",
           "تیربار",
           "تیرداد",
@@ -2277,6 +2316,7 @@
           "دکتری",
           "دیابت",
           "دیتا",
+          "دیرتر",
           "رابرت",
           "راکت",
           "رایت",
@@ -2406,6 +2446,7 @@
           "اندی",
           "انگار",
           "انگارد",
+          "انگبین",
           "ایران",
           "ایرانگردی",
           "ایرانی",
@@ -2765,6 +2806,7 @@
           "ایوانی",
           "ایونی",
           "خاندان",
+          "خاندانی",
           "خانگی",
           "خانوادگی",
           "خانی",
@@ -2817,6 +2859,7 @@
           "دنیا",
           "دنیای",
           "دنیایی",
+          "دوان",
           "دواندن",
           "دوانی",
           "دواوین",
@@ -3035,6 +3078,7 @@
           "نایستد",
           "نبات",
           "نباتات",
+          "نباتی",
           "نبایستی",
           "نبستند",
           "نتابد",
@@ -3160,6 +3204,7 @@
           "کلاس",
           "کلاسه",
           "کلاسها",
+          "کلاسی",
           "کلاسیک",
           "کلاله",
           "کلام",
@@ -3319,6 +3364,7 @@
           "دوستانه",
           "دوستت",
           "دوستها",
+          "دونات",
           "دونده",
           "ساوه",
           "ستوان",
@@ -3385,6 +3431,7 @@
         [
           "آدمی",
           "آردی",
+          "آرمید",
           "آرمیدن",
           "آرمین",
           "آرون",
@@ -3392,6 +3439,7 @@
           "آمدم",
           "آمدن",
           "آمدند",
+          "آمدنی",
           "آمدی",
           "آمدید",
           "آمدیم",
@@ -3516,6 +3564,7 @@
           "جهادگران",
           "جهادها",
           "جهان",
+          "جهاندار",
           "جهانگرد",
           "جهانگردان",
           "جهانند",
@@ -3529,6 +3578,7 @@
           "رنجان",
           "رنجاند",
           "رنجاندن",
+          "رنجانده",
           "رنجند",
           "رنجه",
           "رنجها",
@@ -3560,6 +3610,10 @@
         هموزن: "هم‌وزن",
         تادیب: "تأدیب",
         تاکید: "تأکید",
+        بیتدبیر: "بی‌تدبیر",
+        بیتردید: "بی‌تردید",
+        بیتربیت: "بی‌تربیت",
+        باریکتر: "باریک‌تر",
       };
       DICTIONARY[1].add("بیتاب");
       DICTIONARY[1].add("بیتابی");
@@ -4138,6 +4192,25 @@
           : "ذخیره‌سازی مرورگر در دسترس نیست";
         status.dataset.state = storageAvailable ? "" : "warning";
       };
+      function renderFoundWords() {
+        const all = found().slice().sort((a, b) => persianWordOrder.compare(clean(a), clean(b)));
+        const q = clean($("wordSearch").value);
+        const matches = q ? all.filter(w => clean(w).includes(q)) : all;
+        $("wordSearchCount").textContent = q ? fa(matches.length) + " از " + fa(all.length) + " واژه" : "";
+        $("words").replaceChildren();
+        if (!matches.length) {
+          const empty = document.createElement("p");
+          empty.className = "no-word-results";
+          empty.textContent = "واژه‌ای پیدا نشد";
+          $("words").append(empty);
+        }
+        for (const w of matches) {
+          const chip = document.createElement("span");
+          chip.textContent = (isPangram(w) ? "✦ " : "") + pretty(w);
+          if (isPangram(w)) chip.classList.add("pangram-chip");
+          $("words").append(chip);
+        }
+      }
       function refresh() {
         const f = found(),
           s = f.reduce((n, w) => n + points(w), 0),
@@ -4182,15 +4255,7 @@
           ? "✦ هفت‌نشان پیدا شد!"
           : "✦ هفت‌نشان: هنوز پیدا نشده";
         updateHintButton();
-        $("words").replaceChildren();
-        for (const w of f
-          .slice()
-          .sort((a, b) => persianWordOrder.compare(clean(a), clean(b)))) {
-          let chip = document.createElement("span");
-          chip.textContent = (isPangram(w) ? "✦ " : "") + pretty(w);
-          if (isPangram(w)) chip.classList.add("pangram-chip");
-          $("words").append(chip);
-        }
+        renderFoundWords();
       }
       function show() {
         const e = $("word"),
@@ -4212,6 +4277,17 @@
         const el = $("msg");
         el.textContent = t;
         el.dataset.kind = t ? kind : "";
+        el.removeAttribute("aria-label");
+      }
+      function showAcceptedWord(word, pts, pangram) {
+        const el = $("msg"), name = document.createElement("span"), score = document.createElement("span");
+        name.className = "feedback-word";
+        name.textContent = (pangram ? "✦ " : "✓ ") + pretty(word);
+        score.className = "feedback-points";
+        score.textContent = "+" + fa(pts) + " امتیاز";
+        el.replaceChildren(name, score);
+        el.dataset.kind = pangram ? "pangram" : "success";
+        el.setAttribute("aria-label", (pangram ? "هفت‌نشان: " : "واژه پذیرفته شد: ") + pretty(word) + "، " + fa(pts) + " امتیاز");
       }
       function board() {
         let b = $("board");
@@ -4264,14 +4340,10 @@
         refresh();
         if (!wonBefore && hasWon())
           return message("🏆 جدول کامل شد", "success");
-        const pts = fa(points(w)),
-          total = found().reduce((n, x) => n + points(x), 0);
+        const total = found().reduce((n, x) => n + points(x), 0);
         if (total >= WIN_TARGET && !found().some(isPangram))
           return message("امتیاز کافی است؛ هفت‌نشان لازم است", "info");
-        message(
-          isPangram(w) ? "✦ هفت‌نشان · " + pts + " امتیاز" : pts + " امتیاز",
-          isPangram(w) ? "pangram" : "success",
-        );
+        showAcceptedWord(w, points(w), isPangram(w));
       }
       P.forEach((x, i) => {
         let op = document.createElement("option");
@@ -4303,11 +4375,12 @@
         board();
       };
       $("hint").onclick = showHint;
+      $("wordSearch").addEventListener("input", renderFoundWords);
       let activeDialog = null,
         dialogTrigger = null;
       const dialogFocusables = (dialog) => [
         ...dialog.querySelectorAll(
-          "button:not([disabled]), [href], select:not([disabled])",
+          "button:not([disabled]), input:not([disabled]), [href], select:not([disabled])",
         ),
       ];
       const openDialog = (dialog, trigger) => {
@@ -4329,6 +4402,8 @@
         trigger?.focus();
       };
       const openFound = () => {
+        $("wordSearch").value = "";
+        renderFoundWords();
         openDialog($("foundSheet"), $("showFound"));
       };
       const closeFound = () => {
