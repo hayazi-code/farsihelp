@@ -66,6 +66,29 @@ assert.equal(
   "a seven-letter pangram earns its letter score plus 7",
 );
 assert.equal(points(puzzles[1], "کتاب"), 1, "four-letter words earn one point");
+ 
+// Editorially reviewed additions must remain playable on their intended board.
+const curatedAdditions = {
+  0: ["نارون"],
+  1: ["دیرتر", "بیتدبیر", "بیتردید", "بیتربیت", "تکراری", "باریکتر"],
+  3: ["انگبین"],
+  4: ["خاندانی", "دوان"],
+  5: ["نباتی"],
+  6: ["کلاسی"],
+  7: ["دونات"],
+  8: ["آمدنی", "آرمید"],
+  9: ["جهاندار", "رنجانده"],
+};
+for (const [index, words] of Object.entries(curatedAdditions)) {
+  const dictionary = new Set(extended[Number(index)].map(clean));
+  for (const word of words) {
+    assert.ok(dictionary.has(clean(word)), `Curated word ${word} is accepted on board ${Number(index) + 1}`);
+  }
+}
+assert.equal(clean("بی‌تردید"), "بیتردید", "half-spaces do not change accepted words");
+assert.equal(clean("بی‌تربیت"), "بیتربیت", "standard orthography remains accepted");
+assert.ok(!extended[0].includes("هاماوران"), "proper names are not silently added");
+
 console.log(
   `Validated ${extended.flat().length.toLocaleString("en-US")} entries across 10 boards.`,
 );
