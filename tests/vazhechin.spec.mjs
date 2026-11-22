@@ -44,6 +44,31 @@ test("accepts a valid keyboard-entered word and persists it", async ({
   await expect(page.locator("#shortCount")).toHaveText("۱");
 });
 
+test("shows the accepted word and points together", async ({ page }) => {
+  await page.goto("/vazhechin/");
+  await typeGameWord(page, "نارون");
+  await expect(page.locator("#msg .feedback-word")).toContainText("نارون");
+  await expect(page.locator("#msg .feedback-points")).toHaveText("+۵ امتیاز");
+  await expect(page.locator("#shortCount")).toHaveText("۱");
+});
+
+test("searches the discovered-word sheet without affecting gameplay", async ({ page }) => {
+  await page.goto("/vazhechin/");
+  await typeGameWord(page, "روزنامه");
+  await typeGameWord(page, "انار");
+  await page.locator("#showFound").click();
+  await expect(page.locator("#words span")).toHaveCount(2);
+  await page.locator("#wordSearch").fill("روز");
+  await expect(page.locator("#words span")).toHaveCount(1);
+  await expect(page.locator("#words span")).toContainText("روزنامه");
+  await expect(page.locator("#wordSearchCount")).toHaveText("۱ از ۲ واژه");
+  await page.locator("#wordSearch").fill("ناموجود");
+  await expect(page.locator(".no-word-results")).toHaveText("واژه‌ای پیدا نشد");
+  await expect(page.locator("#shortCount")).toHaveText("۲");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#foundSheet")).not.toHaveClass(/open/);
+});
+
 test("offers progressive hints without changing score", async ({ page }) => {
   await page.goto("/vazhechin/");
   await page.locator("#hint").click();
